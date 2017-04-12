@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>2017晒年味列表页</title>
+    <link rel="stylesheet" href="../style/weui.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <script src="./zepto.min.js"></script>
+    <style type="text/css">
+    body{ font-family: 'Microsoft Yahei'; }
+    h2{ text-align: center; }
+    h3{ text-indent: 15px; line-height: 3em; border-bottom: 1px #eee solid; margin-bottom: 15px;}
+    h4{ line-height: 3em; font-weight: normal;}
+    .banner{  width: 100%; height: 20%; }
+    .activity_time{ line-height: 3em; text-align: left; border-bottom: 1px #eee solid;/*background: url(img/glyphicons-halflings.png) 14px 14px no-repeat;*/}
+    .rules{ padding-top: 10px; }
+    .authorwrap{ margin-top: 10px; padding: 10px; background-color: #eee;}
+    .authorwrap img{ width: 100%; height: 80%; }
+    .votes{ line-height: 3em; text-align: center;}
+    .voted{ line-height: 3em; text-align: center; color: #ff0000; font-weight: bold; }
+    .nianweitext{ padding-left: 15px; padding-right: 15px; }
+    .votebtn{ width: 50%;}
+    </style>
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+<div class="page">
+    <div class="weui-panel__bd">
+    	<img class="banner" src="img/banner.png">
+    	<ul>
+    		<li class="activity_time"><i class="weui-icon-info-circle"></i>活动开始时间：2017-01-19</li>
+    		<li class="activity_time"><i class="weui-icon-info-circle"></i>活动截至时间：2017-01-21</li>
+    	</ul>
+    	<p class="rules"><i class="weui-icon-warn"></i>每个微信号每天能投36票</p>
+        <div class="authorwrap">
+        	<img src="img/author1.jpg">
+        	<h4>秋过暮海</h4>
+        	<a class="weui-btn weui-btn_primary" href="javascript:;"><i class="icon-thumbs-up"></i>投票</a>
+        	<p class="votes">457票</p>
+        </div>
+        <div class="authorwrap">
+        	<img src="img/author1.jpg">
+        	<h4>莫言</h4>
+        	<a class="weui-btn weui-btn_primary votebtn" href="javascript:;"><i class="icon-thumbs-up"></i>投票</a>
+        	<p class="votes">487票</p>
+        </div>
+        <div class="authorwrap">
+        	<img src="img/author1.jpg">
+        	<h4>香榭丽</h4>
+        	<a class="weui-btn weui-btn_primary votebtn" href="javascript:;"><i class="icon-thumbs-up"></i>投票</a>
+        	<p class="votes">400票</p>
+        </div>
+        <script type="text/javascript">
+        	Zepto(function($){
+        		$(".votebtn").click(function(){
+        			$.ajax({
+					  type: 'GET',
+					  url: '/index.php',
+					  // data to be added to query string:
+					  data: { openid: 'openid' },
+					  // type of data we are expecting in return:
+					  dataType: 'json',
+					  timeout: 300,
+					  context: $('body'),
+					  success: function(data){
+					    // Supposing this JSON payload was received:
+					    //   {"project": {"id": 42, "html": "<div>..." }}
+					    // append the HTML to context object.
+					    this.append(data.project.html)
+					  },
+					  error: function(xhr, type){
+					    alert('Ajax error!')
+					  }
+					})
+        			$(this).html("你已投票");
+        			$(this).css("backgroundColor","#ddd");
+        		})
+        	})
+        </script>
+    </div>
+    <div class="page__ft">
+    </div>
+</div>
+</body>
+</html>
